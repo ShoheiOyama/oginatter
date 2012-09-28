@@ -2,7 +2,7 @@ Twitics::Application.routes.draw do
   get "home/index"
 
   resources :users
-  match "/auth/twitter/callback" => "sessions#create"
+  match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
   root :to => "top#index"
 
