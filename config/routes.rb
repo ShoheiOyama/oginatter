@@ -1,5 +1,6 @@
 Twitics::Application.routes.draw do
   get "home/index"
+  get "home/day_tweet"
 
   resources :users
   match "/auth/:provider/callback" => "sessions#create"
