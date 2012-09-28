@@ -1,6 +1,9 @@
 Twitics::Application.routes.draw do
-  resources :users
+  get "home/index"
 
+  resources :users
+  match "/auth/twitter/callback" => "sessions#create"
+  match "/signout" => "sessions#destroy", :as => :signout
   root :to => "top#index"
 
   # The priority is based upon order of creation:
