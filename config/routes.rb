@@ -1,6 +1,8 @@
 Twitics::Application.routes.draw do
-  get "home/index"
-  get "home/day_tweet"
+  get "/home/index"
+  get "/home/day_tweet"
+  get "/home/reply"
+  get "/home/week_tweet"
 
   resources :users
   match "/auth/:provider/callback" => "sessions#create"

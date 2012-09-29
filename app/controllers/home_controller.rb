@@ -1,10 +1,12 @@
 class HomeController < ApplicationController
   before_filter :set_twitter_user
   before_filter :set_timelines
+  before_filter :set_date
 
   def index
-    @user = Twitter.user
-    @timelines = Twitter.user_timeline(@user.screen_name, :count => 200)
+  end
+
+  def reply
     @reply_map = {}
     @timelines.each do |timeline|
       unless timeline.in_reply_to_screen_name.nil?
@@ -15,11 +17,17 @@ class HomeController < ApplicationController
         end
       end
     end
-    unless @reply_map.blank?
-      @reply_map = @reply_map.to_a.sort{|a, b|
-        (b[1] <=> a[1]) * 2 + (a[0] <=> b[0])
-      }.slice(0,10)
+    @reply_ranking = @reply_map.to_a.sort{|a, b|
+      (b[1] <=> a[1]) * 2 + (a[0] <=> b[0])
+    }
+    @reply_top_ten = @reply_ranking.slice(0, 10)
+    @categories = []
+    @data = []
+    @reply_top_ten.each do |(screen_name, count)|
+      @categories << screen_name
+      @data << count
     end
+    @chart = Graph.create_column("reply_count", @categories, "count", @data)
   end
 
   def day_tweet
@@ -31,21 +39,22 @@ class HomeController < ApplicationController
         @day_tweet_map[tweet.created_at.strftime("%m-%d")] += 1
       end
     end
-    @date = @count = []
-    @day_tweet_map.to_a.each do |(date, count)|
-      @date << date
-      @count << count
+    @date = @day_tweet_map.keys
+    @count = @day_tweet_map.values
+    @chart = Graph.create_spline("tweet_count_a_day", @date.reverse, "tweet_count", @count.reverse)
+  end
+
+  def week_tweet
+    @week_tweet_map = {}
+    @timelines.each do |tweet|
+      if @week_tweet_map[WDAY[tweet.created_at.wday]].nil?
+        @week_tweet_map[WDAY[tweet.created_at.wday]] = 1
+      else 
+        @week_tweet_map[WDAY[tweet.created_at.wday]] += 1
+      end
     end
-    @chart = Graph.create_spline("tweet_count_a_day", @date, "tweet_count", @count)
-  end
-
-  private 
-
-  def set_twitter_user
-    @user = Twitter.user
-  end
-
-  def set_timelines
-    @timelines = Twitter.user_timeline(@user.screen_name)
+    @categories = @week_tweet_map.keys
+    @data = @week_tweet_map.values
+    @chart = Graph.create_column("week_tweet_count", @categories.reverse, "tweet_count", @data.reverse)
   end
 end

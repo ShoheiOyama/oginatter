@@ -1,0 +1,8 @@
+<% @reply_top_ten.each do |(screen_name, count)| %>
+  <%= screen_name %>: <%= count %><br>
+<% end %>
+
+<%= high_chart("reply", @chart) %>
+
+<%= link_to "back", "/home/index", :class => "btn" %>
+<%= link_to "tweet_a_day", "/home/day_tweet", :class => "btn" %>

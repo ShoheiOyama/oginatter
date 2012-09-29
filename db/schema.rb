@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928153506) do
+ActiveRecord::Schema.define(:version => 20120929101348) do
+
+  create_table "timelines", :force => true do |t|
+    t.string   "user_id"
+    t.string   "reply_to_id"
+    t.string   "reply_to_name"
+    t.date     "tweet_at"
+    t.string   "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "provider"
