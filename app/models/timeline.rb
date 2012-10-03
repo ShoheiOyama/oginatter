@@ -1,5 +1,4 @@
 class Timeline < ActiveRecord::Base
-  attr_accessible :body, :reply_to_id, :reply_to_name, :tweet_at, :user_id
 
   def self.save_user_timelines(user)
   end
@@ -18,10 +17,11 @@ class Timeline < ActiveRecord::Base
     timelines = []
     tweet_count = user.tweet_count
     return nil if tweet_count == 0
+    tweet_count = 4000 if tweet_count >= 4000
     cnt = (tweet_count / 200) + 1
     rest_count = tweet_count - cnt*200
     cnt.times do |num|
-      timelines.concat self.get_user_timelines(user, 200, num)
+      timelines.concat self.get_user_timelines(user, 200, num+1)
     end
     return timelines
   end
