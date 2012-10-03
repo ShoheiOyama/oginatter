@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   # end
 
   def set_timelines
-    @timelines = Timeline.get_user_timelines(@user, 200, 2)
+    @timelines = Timeline.get_user_all_timelines(@user)
       # @timelines = Twitter.user_timeline(@user.screen_name, :count => 200, :page => 4)
   end
 
