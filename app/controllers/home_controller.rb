@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_filter :set_twitter_user
+  before_filter :set_user
   before_filter :set_timelines
   before_filter :set_date
 
@@ -39,9 +39,9 @@ class HomeController < ApplicationController
         @day_tweet_map[tweet.created_at.strftime("%m-%d")] += 1
       end
     end
-    @date = @day_tweet_map.keys
-    @count = @day_tweet_map.values
-    @chart = Graph.create_spline("tweet_count_a_day", @date.reverse, "tweet_count", @count.reverse)
+    @categories = @day_tweet_map.keys
+    @data = @day_tweet_map.values
+    @chart = Graph.create_spline("tweet_count_a_day", @categories.reverse, "tweet_count", @data.reverse)
   end
 
   def week_tweet
