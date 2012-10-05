@@ -5,6 +5,7 @@ gem 'thin'
 gem 'lazy_high_charts'
 gem 'dalli'
 gem 'nokogiri'
+gem 'rest-client'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
