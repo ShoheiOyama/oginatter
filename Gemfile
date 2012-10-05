@@ -4,6 +4,7 @@ gem 'rails', '3.2.3'
 gem 'thin'
 gem 'lazy_high_charts'
 gem 'dalli'
+gem 'nokogiri'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -31,6 +32,7 @@ end
 # Heroku
 group :production do
     gem 'pg'
+    gem 'thin'
 end
 
 group :development do
