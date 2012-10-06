@@ -55,6 +55,7 @@
       <div class="content">
         <div class="row">
            <div class="span9">
+              <li>残りAPI: <%= TwitterApi.get_rest_api.to_i %>回</li>
               <% if @since && @until %>
                 <h3><%= @since %>から<%= @until %>までの統計</h3>
               <% end %>
