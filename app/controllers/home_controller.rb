@@ -1,10 +1,8 @@
 class HomeController < ApplicationController
+  before_filter :validate_login
   before_filter :set_user
   before_filter :set_timelines
   before_filter :set_date
-
-  def index
-  end
 
   def reply
     @reply_map = {}

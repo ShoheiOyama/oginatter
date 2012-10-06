@@ -1,4 +1,6 @@
 Twitics::Application.routes.draw do
+  get "login/index"
+
   get "/home/index"
   get "/home/day_tweet"
   get "/home/reply"
@@ -7,7 +9,7 @@ Twitics::Application.routes.draw do
   resources :users
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
-  root :to => "top#index"
+  root :to => "login#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       config.oauth_token = auth['credentials']['token']
       config.oauth_token_secret = auth['credentials']['secret']
     end
-    redirect_to :controller => :home, :action => :index , :notice => "認証しました！"
+    redirect_to :controller => :home, :action => :reply
   end
 
   def destroy
