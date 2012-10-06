@@ -1,4 +1,6 @@
 Twitics::Application.routes.draw do
+  get "follow/index"
+
   get "login/index"
 
   get "/home/index"
