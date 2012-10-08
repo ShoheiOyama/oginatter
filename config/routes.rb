@@ -1,5 +1,7 @@
 Twitics::Application.routes.draw do
   get "follow/index"
+  get "follow/add_list"
+  post "follow/create_list"
 
   get "login/index"
 

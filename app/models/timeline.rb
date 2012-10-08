@@ -7,7 +7,7 @@ class Timeline < ActiveRecord::Base
     return if user.nil?
     unless timelines = Rails.cache.read("#{user.id}-timeline-#{page}")
       timelines = Twitter.user_timeline(user.screen_name, :count => count, :page => page)
-      Rails.cache.write "#{user.id}-timeline-#{page}", timelines, :expire => 3600.seconds
+      Rails.cache.write "#{user.id}-timeline-#{page}", timelines, :expire => 600.seconds
     end
     return timelines
   end

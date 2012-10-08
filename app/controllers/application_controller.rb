@@ -21,7 +21,12 @@ class ApplicationController < ActionController::Base
 
   def set_user(screen_name=nil)
     if screen_name.nil?
-      @user = Twitter.user
+      if @user = Rails.cache.read("#{session[:user_id]}-user")
+        return @user
+      else
+        @user = Twitter.user
+        Rails.cache.write "#{session[:user_id]}-user"
+      end
     else
       @user = Twitter.user(screen_name)
     end

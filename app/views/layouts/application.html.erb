@@ -41,10 +41,15 @@
           </a>
           <a class="brand" href="/">Twitics</a>
           <div class="container nav-collapse">
-            <ul class="nav">
-              <li><%= link_to "day_tweet", :controller => :home, :action => :day_tweet %></li>
-              <li><%= link_to "reply", :controller => :home, :action => :reply  %></li>
-              <li><%= link_to "week_tweet", :controller => :home, :action => :week_tweet  %></li>
+            <ul class="nav pull-right">
+              <li><a href="/">Sign Up</a></li>
+              <li class="divider-vertical"></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                  <!-- Login form here -->
+                </div>
+              </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -55,7 +60,7 @@
       <div class="content">
         <div class="row">
            <div class="span9">
-              <li>残りAPI: <%= TwitterApi.get_rest_api.to_i %>回</li>
+              <pre>残りAPI: <%= TwitterApi.get_rest_api.to_i %>回</pre>
               <% if @since && @until %>
                 <h3><%= @since %>から<%= @until %>までの統計</h3>
               <% end %>
@@ -69,6 +74,7 @@
                   <li><%= link_to "day_tweet", :controller => :home, :action => :day_tweet %></li>
                   <li><%= link_to "reply", :controller => :home, :action => :reply  %></li>
                   <li><%= link_to "week_tweet", :controller => :home, :action => :week_tweet  %></li>
+                  <li><%= link_to "follow_list", :controller => :follow, :action => :index %>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->

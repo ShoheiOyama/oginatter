@@ -3,16 +3,24 @@ class FollowController < ApplicationController
   before_filter :set_user
 
   def index
-    follow_ids = Twitter.friend_ids(@user.id).ids
-    users = []
-    i = 0
-    cnt = follow_ids.size / 100
+    @follow_users = Follow.get_follow_users(@user)
+  end
+
+  def add_list
+    @follow_users = Follow.get_follow_users(@user)
+  end
+
+  def create_list
+    redirect_to :action => :add_list if params[:fids].nil?
+    @list_name = params[:list_name]
+    new_list = Twitter.list_create(@list_name)
+    fids = params[:fids]
+    cnt = fids.size / 10
     cnt.times do |num|
-      users.concat Twitter.users(follow_ids[i..i+99])
-      i = i + 100
+      Twitter.list_add_members(new_list['id'], fids[num*10..num*10+9])
     end
-    mod = (follow_ids.size % 100) - 1
-    users.concat Twitter.users(follow_ids[i..i + mod])
-    pp users[0]
+    mod = (fids.size % 10) - 1
+    Twitter.list_add_members(new_list['id'], fids[cnt*10..cnt*10+mod])
+    redirect_to :action => :index
   end
 end

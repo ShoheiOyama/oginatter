@@ -6,6 +6,7 @@ gem 'lazy_high_charts'
 gem 'dalli'
 gem 'nokogiri'
 gem 'rest-client'
+gem 'will_paginate'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
