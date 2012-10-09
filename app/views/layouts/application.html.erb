@@ -42,12 +42,11 @@
           <a class="brand" href="/">Twitics</a>
           <div class="container nav-collapse">
             <ul class="nav pull-right">
-              <li><a href="/">Sign Up</a></li>
-              <li class="divider-vertical"></li>
               <li class="dropdown">
-                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Menu<strong class="caret"></strong></a>
                 <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                  <!-- Login form here -->
+                  <li><%= link_to "timelines", :controller => :timelines, :action => :reply %></li>
+                  <li><%= link_to "follow", :controller => :follow, :action => :index %></li>
                 </div>
               </li>
             </ul>
@@ -71,10 +70,11 @@
                 <h3>Sidebar</h3>
                 <ul class="nav nav-list">
                   <li class="nav-header">Sidebar</li>
-                  <li><%= link_to "day_tweet", :controller => :home, :action => :day_tweet %></li>
-                  <li><%= link_to "reply", :controller => :home, :action => :reply  %></li>
-                  <li><%= link_to "week_tweet", :controller => :home, :action => :week_tweet  %></li>
-                  <li><%= link_to "follow_list", :controller => :follow, :action => :index %>
+                  <li><%= link_to "day_tweet", :controller => :timelines, :action => :day_tweet %></li>
+                  <li><%= link_to "reply", :controller => :timelines, :action => :reply  %></li>
+                  <li><%= link_to "week_tweet", :controller => :timelines, :action => :week_tweet  %></li>
+                  <li><%= link_to "follow_list", :controller => :follow, :action => :index %></li>
+                  <li><%= link_to "add_list", :controller => :follow, :action => :add_list %></li>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->

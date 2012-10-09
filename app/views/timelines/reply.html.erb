@@ -1,0 +1,7 @@
+<% @reply_top_ten.each do |(screen_name, count)| %>
+  <%= screen_name %>: <%= count %><br>
+<% end %>
+
+<% if @chart %>
+  <%= high_chart("reply", @chart) %>
+<% end -%>
