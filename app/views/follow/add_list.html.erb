@@ -9,7 +9,7 @@
     <%= form_tag :action => "create_list" do %>
       <% @follow_users.each do |user| %>
       <tr>
-        <td width="80"><%= check_box_tag "fids[]", user.fid %></td>
+        <td width="80"><%= check_box_tag "fids[]", user.screen_name %></td>
         <td><%= user.screen_name %></td>
       </tr>
       <% end %>
