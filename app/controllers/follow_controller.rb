@@ -15,8 +15,6 @@ class FollowController < ApplicationController
     @list_name = params[:list_name]
     new_list = Twitter.list_create(@list_name)
     fids = params[:fids]
-    pp fids
-    pp new_list
     cnt = fids.size / 10
     i = 0
     cnt.times do |num|
