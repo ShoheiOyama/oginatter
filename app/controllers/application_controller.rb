@@ -2,7 +2,6 @@
 class ApplicationController < ActionController::Base
   require 'pp'
   helper_method :current_user
-  before_filter :list_test
   
   protect_from_forgery
 
