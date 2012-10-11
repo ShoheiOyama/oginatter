@@ -1,0 +1,5 @@
+<% if @since && @until %>
+  <%= form_tag do %>
+  <h3><%= text_field_tag :since, @since %>から<%= text_field_tag :until, @until %>までの統計:  <%= submit_tag "Search!!", :class => "btn btn-primary" %></h3>
+  <% end -%>
+<% end %>

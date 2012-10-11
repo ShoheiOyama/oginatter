@@ -60,9 +60,6 @@
         <div class="row">
            <div class="span9">
               <pre>残りAPI: <%= TwitterApi.get_rest_api.to_i %>回</pre>
-              <% if @since && @until %>
-                <h3><%= @since %>から<%= @until %>までの統計</h3>
-              <% end %>
               <%= yield %>
             </div>
             <div class="span3">
@@ -73,7 +70,6 @@
                   <li><%= link_to "day_tweet", :controller => :timelines, :action => :day_tweet %></li>
                   <li><%= link_to "reply", :controller => :timelines, :action => :reply  %></li>
                   <li><%= link_to "week_tweet", :controller => :timelines, :action => :week_tweet  %></li>
-                  <li><%= link_to "follow_list", :controller => :follow, :action => :index %></li>
                   <li><%= link_to "add_list", :controller => :follow, :action => :add_list %></li>
                 </ul>
               </div><!--/.well -->

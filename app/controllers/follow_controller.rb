@@ -25,6 +25,6 @@ class FollowController < ApplicationController
     end
     mod = (fids.size % 10) - 1
     Twitter.list_add_members(new_list['id'], fids[i..i+mod])
-    redirect_to :action => :index
+    redirect_to :action => :add_list
   end
 end

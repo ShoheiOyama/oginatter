@@ -12,7 +12,7 @@ gem 'will_paginate'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'omniauth'
-gem 'twitter'
+gem 'twitter', "4.1.0"
 gem 'omniauth-twitter'
 gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'

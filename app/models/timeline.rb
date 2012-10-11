@@ -25,4 +25,22 @@ class Timeline < ActiveRecord::Base
     end
     return timelines
   end
+
+  def self.get_timelines_by_time(user, stime=nil, etime=nil)
+    return if user.nil?
+    return if stime.nil? && etime.nil?
+    if stime.nil?
+      stime = Time.new(0)
+    else etime.nil?
+      etime = Time.now
+    end
+    timelines = self.get_user_all_timelines(user)
+    @timelines = []
+    timelines.each do |tweet|
+      if tweet.created_at > stime && tweet.created_at < etime
+        @timelines << tweet
+      end
+    end
+    return @timelines
+  end
 end

@@ -2,8 +2,8 @@ class Follow < ActiveRecord::Base
   attr_accessible :fid, :screen_name, :uid
 
   def self.get_follow_users(user, force=false)
-    if !force && self.where(:uid => user.id).first 
-      return self.where(:uid => user.id).all
+    if @follow_users = Rails.cache.read("#{user.id}-follow_users")
+      return @follow_users
     else
       follow_ids = Twitter.friend_ids(user.id).ids
       @follow_users = []
@@ -15,11 +15,7 @@ class Follow < ActiveRecord::Base
       end
       mod = (follow_ids.size % 100) - 1
       @follow_users.concat Twitter.users(follow_ids[i..i + mod])
-      @follow_users.each do |follow_user|
-        unless self.where(:uid => user.id, :fid => follow_user.id, :screen_name => follow_user.screen_name).first
-          self.create(:uid => user.id, :fid => follow_user.id, :screen_name => follow_user.screen_name)
-        end
-      end
+      Rails.cache.write "#{user.id}-follow_users", @follow_users, :expire => 3600.seconds
       return @follow_users
     end
   end

@@ -2,13 +2,24 @@ Twitics::Application.routes.draw do
   get "follow/index"
   get "follow/add_list"
   post "follow/create_list"
+  controller "follow", :path => "follow" do
+    get "index"
+    get "add_list"
+    post "create_list"
+  end
+
+  controller "timelines", :path => "timelines" do 
+    get "index"
+    get "day_tweet"
+    get "reply"
+    get "week_tweet"
+    post "index"
+    post "day_tweet"
+    post "reply"
+    post "week_tweet"
+  end
 
   get "login/index"
-
-  get "/timelines/index"
-  get "/timelines/day_tweet"
-  get "/timelines/reply"
-  get "/timelines/week_tweet"
 
   resources :users
   match "/auth/:provider/callback" => "sessions#create"

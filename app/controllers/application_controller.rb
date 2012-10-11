@@ -2,6 +2,7 @@
 class ApplicationController < ActionController::Base
   require 'pp'
   helper_method :current_user
+  before_filter :list_test
   
   protect_from_forgery
 
@@ -29,20 +30,27 @@ class ApplicationController < ActionController::Base
   end
 
   def set_timelines
-    @timelines = Timeline.get_user_all_timelines(@user)
-      # @timelines = Twitter.user_timeline(@user.screen_name, :count => 200, :page => 4)
+    @since = params[:since].to_time if params[:since]
+    @until = params[:until].to_time if params[:until]
+    if @since.nil? && @until.nil?
+      @timelines = Timeline.get_user_all_timelines(@user)
+    else
+      @timelines = Timeline.get_timelines_by_time(@user, @since, @until)
+    end
   end
 
   def set_date
-    @timelines.each do |tweet|
-      if @since.nil? && @until.nil?
-        @since = @until = tweet.created_at
-      else
-        @since = tweet.created_at if @since > tweet.created_at
-        @until = tweet.created_at if @until < tweet.created_at
+    if @since.nil? && @until.nil?
+      @timelines.each do |tweet|
+        if @since.nil? && @until.nil?
+          @since = @until = tweet.created_at
+        else
+          @since = tweet.created_at if @since > tweet.created_at
+          @until = tweet.created_at if @until < tweet.created_at
+        end
       end
     end
-    @since = @since.strftime("%m-%d")
-    @until = @until.strftime("%m-%d")
+    @since = @since.strftime("%Y-%m-%d")
+    @until = @until.strftime("%Y-%m-%d")
   end
 end
